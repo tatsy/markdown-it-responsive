@@ -1,0 +1,36 @@
+{
+  "name": "markdown-it-responsive",
+  "version": "0.1.0",
+  "description": "markdown-it plugin for responsive images",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tatsy/markdown-it-responsive.git"
+  },
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin"
+  ],
+  "author": "tatsy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tatsy/markdown-it-responsive/issues"
+  },
+  "homepage": "https://github.com/tatsy/markdown-it-responsive",
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "eslint": "^0.13.0",
+    "eslint-plugin-nodeca": "^1.0.3",
+    "istanbul": "^0.3.5",
+    "markdown-it": "^3.0.4",
+    "markdown-it-testgen": "^0.1.4",
+    "mocha": "^2.1.0",
+    "should": "^5.0.0",
+    "uglify-js": "^2.4.16",
+    "webpack": "^1.5.3"
+  }
+}

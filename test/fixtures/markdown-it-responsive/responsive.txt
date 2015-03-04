@@ -1,0 +1,6 @@
+Responsive images:
+.
+![test](test.png)
+.
+<p><img src="test.png" alt="test"></p>
+.
