@@ -7,9 +7,9 @@ markdown-it-responsive
 
 > A markdown-it plugin for responsive images. This plugin overloads original image renderer of markdown-it.
 
-# Usage
+## Usage
 
-## Enable plugin
+### Enable plugin
 
 ```js
 var md = require('markdown-it')({
@@ -19,7 +19,7 @@ var md = require('markdown-it')({
 }).use(require('markdown-it-responsive'), options);  // <-- this use(package_name) is required
 ```
 
-## How to specify options?
+### How to specify options?
 
 The notation to specify responsive sizes is as follows.
 
@@ -45,7 +45,7 @@ var option = { responsive: {
 };
 ```
 
-## Example
+### Example
 
 With the options above, a markdown
 
