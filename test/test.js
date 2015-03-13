@@ -8,7 +8,7 @@ var generate = require('markdown-it-testgen');
 describe('markdown-it-responsive', function() {
   var option = { responsive: {
     'srcset': {
-      'header-*': [{
+      'header-*': [ {
         width: 320,
         rename: {
           suffix: '-small'
@@ -18,12 +18,12 @@ describe('markdown-it-responsive', function() {
         rename: {
           suffix: '-medium'
         }
-      }]
+      } ]
     },
     'sizes': {
       'header-*': '(min-width: 36em) 33.3vw, 100vw'
     }
-  }};
+  } };
 
   var md = require('markdown-it')({
     html: true,
