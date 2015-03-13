@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '0.10'
+script:
+  - make test-ci
+deploy:
+  provider: npm
+  email: tatsy.mail@gmail.com
+  api_key:
+    secure: roTQgiuF6NYgvDDoo/jNxzSpCxLyaVuuAjfeMwFrOyeP9DWd41hBdAp5iiJYn/k1NxRMCFKU5ypnxXvkx/f8FQb/4J8ULKk6WCTxNy4Y/ta1wh/0v0auPDLl0I2iWDjjpR4WvMo//6R4dOsBLxmgnFhWFe6B+hn21E9Im/CNfD0=
+  on:
+    tags: true
+    repo: tatsy/markdown-it-responsive
+    all_branches: true
