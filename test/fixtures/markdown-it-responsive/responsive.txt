@@ -7,5 +7,5 @@ Responsive images:
 .
 ![test](header-test.png)
 .
-<p><img src="header-test.png" srcset="header-test-small.png 320w, header-test-medium.png 640w" sizes="(min-width: 36em) 33.3vw, 100vw" alt="test"></p>
+<p><img srcset="header-test-small.png 320w, header-test-medium.png 640w" sizes="(min-width: 36em) 33.3vw, 100vw" src="header-test.png" alt="test"></p>
 .

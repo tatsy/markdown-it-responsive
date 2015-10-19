@@ -26,7 +26,7 @@
     "eslint": "^0.13.0",
     "eslint-plugin-nodeca": "^1.0.3",
     "istanbul": "^0.3.5",
-    "markdown-it": "^3.0.4",
+    "markdown-it": "^4.4.0",
     "markdown-it-testgen": "^0.1.4",
     "mocha": "^2.2.1",
     "should": "^5.0.0",

@@ -4,6 +4,7 @@ var path = require('path');
 var assert = require('assert');
 var should = require('should');
 var generate = require('markdown-it-testgen');
+var markdown = require('markdown-it');
 
 describe('markdown-it-responsive', function() {
   var option = { responsive: {
@@ -25,12 +26,38 @@ describe('markdown-it-responsive', function() {
     }
   } };
 
-  var md = require('markdown-it')({
+  var md = markdown({
     html: true,
     linkify: true,
     typography: true
   }).use(require('../lib'), option);
   generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive.txt'), md);
+
+  var option2 = { responsive: {
+    'srcset': {
+      'header-*': [ {
+        width: 320,
+        rename: {
+          suffix: '-small'
+        }
+      }, {
+        width: 640,
+        rename: {
+          suffix: '-medium'
+        }
+      } ]
+    },
+    'sizes': {
+      'header-*': '(min-width: 36em) 33.3vw, 100vw'
+    },
+    removeSrc: true
+  } };
+  var md2 = markdown({
+    html: true,
+    linkify: true,
+    typography: true
+  }).use(require('../lib'), option2);
+  generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive-picturefill.txt'), md2);
 });
 
 describe('Invalid operations', function() {
