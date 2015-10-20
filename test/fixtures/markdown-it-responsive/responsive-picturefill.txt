@@ -1,8 +1,8 @@
 Responsive images:
 .
-![test](test.png)
+![test](test.png "Test Title")
 .
-<p><img src="test.png" alt="test"></p>
+<p><img src="test.png" alt="test" title="Test Title"></p>
 .
 .
 ![test](header-test.png)
