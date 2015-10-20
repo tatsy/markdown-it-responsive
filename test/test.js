@@ -33,7 +33,11 @@ describe('markdown-it-responsive', function() {
   }).use(require('../lib'), option);
   generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive.txt'), md);
 
-  var option2 = { responsive: {
+});
+
+describe('markdown-it-responsive-picturefill', function() {
+
+  var option = { responsive: {
     'srcset': {
       'header-*': [ {
         width: 320,
@@ -52,12 +56,42 @@ describe('markdown-it-responsive', function() {
     },
     removeSrc: true
   } };
-  var md2 = markdown({
+  var md = markdown({
     html: true,
     linkify: true,
     typography: true
-  }).use(require('../lib'), option2);
-  generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive-picturefill.txt'), md2);
+  }).use(require('../lib'), option);
+  generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive-picturefill.txt'), md);
+});
+
+describe('markdown-it-responsive-path-rewrite', function() {
+
+  var option = { responsive: {
+    'srcset': {
+      'header-*': [ {
+        width: 320,
+        rename: {
+          suffix: '-small',
+          path: 'newdir/small'
+        }
+      }, {
+        width: 640,
+        rename: {
+          suffix: '-medium',
+          path: 'newdir/medium'
+        }
+      } ]
+    },
+    'sizes': {
+      'header-*': '(min-width: 36em) 33.3vw, 100vw'
+    }
+  } };
+  var md = markdown({
+    html: true,
+    linkify: true,
+    typography: true
+  }).use(require('../lib'), option);
+  generate(path.join(__dirname, 'fixtures/markdown-it-responsive/responsive-path-rewrite.txt'), md);
 });
 
 describe('Invalid operations', function() {

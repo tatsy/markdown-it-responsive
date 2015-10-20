@@ -1,4 +1,4 @@
-Responsive images:
+Responsive images for picturefill:
 .
 ![test](dir/test.png "Test Title")
 .
