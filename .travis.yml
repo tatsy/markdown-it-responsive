@@ -1,8 +1,12 @@
 language: node_js
 node_js:
-  - '0.10'
-script:
-  - make test-ci
+ - 4
+ - 5
+ - 6
+ - 7
+ - 8
+ - node
+script: make
 deploy:
   provider: npm
   email: tatsy.mail@gmail.com
