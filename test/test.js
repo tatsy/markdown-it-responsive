@@ -3,8 +3,8 @@
 var path = require('path');
 var assert = require('assert');
 var should = require('should');
-var generate = require('@gerhobbelt/markdown-it-testgen');
-var markdown = require('@gerhobbelt/markdown-it');
+var generate = require('markdown-it-testgen');
+var markdown = require('markdown-it');
 
 describe('markdown-it-responsive', function() {
   var option = { responsive: {
