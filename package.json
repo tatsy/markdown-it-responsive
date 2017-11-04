@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/markdown-it-responsive",
-  "version": "0.1.1-1",
+  "version": "0.1.1-2",
   "description": "markdown-it plugin for responsive images",
   "main": "lib/index.js",
   "repository": {
