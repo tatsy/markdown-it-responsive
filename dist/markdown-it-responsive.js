@@ -1,4 +1,4 @@
-/*! markdown-it-responsive 0.1.1-2 https://github.com//GerHobbelt/markdown-it-responsive @license MIT */(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.markdownitResponsive = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*! markdown-it-responsive 0.1.1-3 https://github.com//GerHobbelt/markdown-it-responsive @license MIT */(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.markdownitResponsive = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 var escapeChars = [
@@ -514,8 +514,9 @@ function matchPattern(src, patterns) {
   return -1;
 }
 
-function renderResponsive(md, tokens, idx, options, env, slf, patterns) {
+function renderResponsive(md, tokens, idx, options, env, slf, rr_options) {
   var token = tokens[idx];
+  var patterns = analyze_options(rr_options.responsive);
   // normal fields
   var filename = token.attrs[token.attrIndex('src')][1];
   if (token.attrIndex('alt') === -1) {
@@ -526,35 +527,55 @@ function renderResponsive(md, tokens, idx, options, env, slf, patterns) {
 
   // responsive fields
   var i, patternId;
-  var base, ext, rules, isFirst;
+  var base, ext, dir, rules, isFirst;
 
   if ((patternId = matchPattern(filename, patterns)) >= 0) {
     rules = patterns[patternId].rules;
     ext = path.extname(filename);
     base = path.basename(filename, ext);
+    dir = path.dirname(filename);
     isFirst = true;
     var srcset = '';
+    var tmpfile, tmpdir;
     for (i = 0; i < rules.length; i++) {
       if (!isFirst) { srcset += ', '; }
+      tmpfile = '';
       if (rules[i].rename && rules[i].rename.prefix) {
-        srcset += rules[i].rename.prefix;
+        tmpfile += rules[i].rename.prefix + base;
       }
-      srcset += base;
+      tmpfile += base;
       if (rules[i].rename && rules[i].rename.suffix) {
-        srcset += rules[i].rename.suffix;
+        tmpfile += rules[i].rename.suffix;
       }
-      srcset += ext + ' ';
+      tmpdir = dir;
+      if (rules[i].rename && rules[i].rename.path) {
+        if (typeof rules[i].rename.path === 'function') {
+          tmpdir = rules[i].rename.path(tmpdir);
+        } else if (typeof rules[i].rename.path === 'string') {
+          tmpdir = rules[i].rename.path;
+        }
+      }
+      if (tmpdir === '.') {
+        tmpdir = '';
+      } else {
+        tmpdir += '/';
+      }
+      srcset += tmpdir + tmpfile + ext + ' ';
       if (rules[i].width) { srcset += rules[i].width + 'w'; }
       if (rules[i].height) { srcset += rules[i].height + 'h'; }
       isFirst = false;
     }
 
     if (srcset) {
-      token.attrPush([ 'srcset', srcset ]);
-    }
+      if (rr_options.responsive.removeSrc) {
+        token.attrs.splice(token.attrIndex('src'), 1);
+      }
 
-    if (patterns[patternId].sizes) {
-      token.attrPush([ 'sizes', patterns[patternId].sizes ]);
+      token.attrPush([ 'srcset', srcset ]);
+
+      if (patterns[patternId].sizes) {
+        token.attrPush([ 'sizes', patterns[patternId].sizes ]);
+      }
     }
   }
 
@@ -562,9 +583,8 @@ function renderResponsive(md, tokens, idx, options, env, slf, patterns) {
 }
 
 function responsive_image(md, options) {
-  var patterns = analyze_options(options.responsive);
   return function (tokens, idx, opt, env, slf) {
-    return renderResponsive(md, tokens, idx, opt, env, slf, patterns);
+    return renderResponsive(md, tokens, idx, opt, env, slf, options);
   };
 }
 
