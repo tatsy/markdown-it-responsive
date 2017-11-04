@@ -3,7 +3,7 @@
 var path = require('path');
 var assert = require('assert');
 var should = require('should');
-var generate = require('markdown-it-testgen');
+var generate = require('@gerhobbelt/markdown-it-testgen');
 
 describe('markdown-it-responsive', function() {
   var option = { responsive: {
@@ -25,7 +25,7 @@ describe('markdown-it-responsive', function() {
     }
   } };
 
-  var md = require('markdown-it')({
+  var md = require('@gerhobbelt/markdown-it')({
     html: true,
     linkify: true,
     typography: true
@@ -36,7 +36,7 @@ describe('markdown-it-responsive', function() {
 describe('Invalid operations', function() {
   it('No option', function() {
     (function() {
-      var md = require('markdown-it')({
+      var md = require('@gerhobbelt/markdown-it')({
         html: true,
         linkify: true,
         typography: true
@@ -46,7 +46,7 @@ describe('Invalid operations', function() {
 
   it('No responsive field', function() {
     (function() {
-      var md = require('markdown-it')({
+      var md = require('@gerhobbelt/markdown-it')({
         html: true,
         linkify: true,
         typography: true
